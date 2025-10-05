@@ -5,7 +5,11 @@ from matplotlib.colors import ListedColormap  # Import ListedColormap for discre
 # Set Times New Roman as default font for all plots
 plt.rcParams['font.family'] = 'Times New Roman'  # Set font family to Times New Roman
 
+
+
+
 # Step 1: Data Processing
+################################################
 # Load CSV data into pandas DataFrame
 df = pd.read_csv('data.csv')  # Read CSV file and store in DataFrame variable df
 
@@ -22,7 +26,10 @@ print(df.head())  # Display first 5 rows of the dataset
 print("\nColumn information:")  # Print header for column info
 print(df.info())  # Display data types and null value information
 
+
+
 # Step 2: Data Visualization
+#############################################
 print("\n" + "-"*50)  # Print separator line with 60 dashes
 print("Step 2: Statistical Analysis and Visualization")  # Print section title
 print("-"*50)  # Print separator line
@@ -89,7 +96,11 @@ cbar3.set_ticklabels(range(1, 14))  # Set tick labels to show steps 1-13
 # Show all figures
 plt.show()  # Display all created plots on screen
 
+
+
+
 # Step 3: Correlation Analysis
+######################################################
 print("\n" + "-"*50)  # Print separator line
 print("Step 3: Correlation Analysis")  # Print section title
 print("-"*50)  # Print separator line
