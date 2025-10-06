@@ -464,6 +464,55 @@ print("="*80)  # Print separator
 print(classification_report(target_test, stacked_predictions,
                            target_names=[f'Step {i}' for i in sorted(target_test.unique())]))  # Print detailed report
 
+
+
+
+# Step 7: Model Evaluation
+######################################################
+print("\n" + "-"*50)  # Print separator line
+print("Step 7: Model Evaluation")  # Print section title
+print("-"*50)  # Print separator line
+
+import joblib  # Import joblib for model serialization
+
+# Save the best performing model
+print(f"\nSaving best model ({best_model}) to file...")  # Status message
+joblib.dump(logistic_grid.best_estimator_, 'best_model.joblib')  # Save model to disk
+print("Model saved as 'best_model.joblib'")  # Confirmation message
+
+# Load the saved model
+print("\nLoading saved model...")  # Status message
+loaded_model = joblib.load('best_model.joblib')  # Load model from disk
+print("Model loaded successfully")  # Confirmation message
+
+# Test coordinates from project requirements
+test_coordinates = [
+    [9.375, 3.0625, 1.51],
+    [6.995, 5.125, 0.3875],
+    [0, 3.0625, 1.93],
+    [9.4, 3, 1.8],
+    [9.4, 3, 1.3]
+]
+
+# Create DataFrame for test coordinates
+test_coords_df = pd.DataFrame(test_coordinates, columns=['X', 'Y', 'Z'])  # Convert to DataFrame
+
+# Make predictions using loaded model
+print("\nMaking predictions on test coordinates...")  # Status message
+predictions = loaded_model.predict(test_coords_df)  # Predict maintenance steps
+
+# Display results
+print("\n" + "="*80)  # Print separator
+print("PREDICTIONS FOR TEST COORDINATES")  # Header
+print("="*80)  # Print separator
+print(f"\n{'Coordinate':<30} {'X':<10} {'Y':<10} {'Z':<10} {'Predicted Step':<15}")  # Column headers
+print("-"*80)  # Divider
+
+for i, (coord, pred) in enumerate(zip(test_coordinates, predictions), 1):
+    print(f"{'Test Coordinate ' + str(i):<30} {coord[0]:<10} {coord[1]:<10} {coord[2]:<10} {pred:<15}")  # Print results
+
+print("="*80)  # Print separator
+
 # Display all plots at the end
 plt.show(block=False)  # Show all plots without blocking
 input("\nPress Enter to close all plots and exit...")  # Wait for user input
